@@ -10,7 +10,7 @@ import {
     TodolistsReducer,
     UpdateTodolistAC
 } from "./reducers/TodolistsReducer";
-import {RemoveTaskAC, TaskReducer} from "./reducers/TaskReducer";
+import {AddTaskAC, ChangeStatusAC, RemoveTaskAC, TaskReducer, UpdateTaskAC} from "./reducers/TaskReducer";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -104,12 +104,14 @@ function App() {
     }
 
     function addTask(todolistId: string, title: string) {
-        let newTask = {id: v1(), title: title, isDone: false};
+        // let newTask = {id: v1(), title: title, isDone: false};
         // setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
+        dispatchTasks(AddTaskAC(todolistId, title))
     }
 
     function changeStatus(todolistId: string, taskId: string, isDone: boolean) {
         // setTasks({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === taskId ? {...el, isDone} : el)})
+         dispatchTasks(ChangeStatusAC(todolistId, taskId, isDone))
     }
 
 
@@ -120,6 +122,7 @@ function App() {
         //         ? {...el, title: updateTitle}
         //         : el)
         // })
+        dispatchTasks(UpdateTaskAC(todolistTd, taskId, updateTitle))
     }
 
     return (
